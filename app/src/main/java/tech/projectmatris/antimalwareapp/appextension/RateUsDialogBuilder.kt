@@ -20,7 +20,7 @@ object RateUsDialogBuilder {
             }
         }
 
-        AlertDialog
+        val dialog = AlertDialog
             .Builder(context)
             .setView(view)
             .setTitle(R.string.rate_us_title)
@@ -29,20 +29,13 @@ object RateUsDialogBuilder {
             }
             .setNegativeButton(R.string.rate_cancel) { _, _ -> }
             .create()
-            .apply {
-                getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.textColorPrimary
-                    )
-                )
-                getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.textColorSecondary
-                    )
-                )
-            }
-            .show()
+
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                ?.setTextColor(ContextCompat.getColor(context, R.color.textColorAccent))
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                ?.setTextColor(ContextCompat.getColor(context, R.color.textColorSecondary))
+        }
+        dialog.show()
     }
 }
